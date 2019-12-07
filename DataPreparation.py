@@ -1,10 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## Import packages and load data
-
-# In[ ]:
-
+## Import packages and load data
 
 import pandas as pd
 import numpy as np
@@ -14,25 +8,12 @@ from nltk.corpus import stopwords
 import string
 nltk.download('stopwords')
 nltk.download('punkt')
-
-
 df = pd.read_csv('all_opinions.csv', encoding = 'utf-8', delimiter = ',')
-
-
 # Transform 
 df['target'] = df['per_curiam'].apply(lambda x: 1 if x == True else 0)
-
-
-# In[ ]:
-
-
 df = df[['text', 'target']]
 
-
-# In[ ]:
-
-
-# text cleaning
+# Text cleaning
 # 1. stripping punctuations, numbers
 # 2. lowercase
 # 3. remove stopwords
@@ -51,28 +32,7 @@ def cleaning_text(review):
             words.append(w)
     return ' '.join(words)
 
-
-# In[ ]:
-
-
 df["clean_text"] = df["text"].apply(cleaning_text)
-
-
-# In[ ]:
-
-
 df.head()
-
-
-# In[ ]:
-
-
 # Save processed data 
 df.to_csv(index = False)
-
-
-# In[ ]:
-
-
-data_raw = pd.read_csv('df_processed', encoding = 'utf-8')
-
